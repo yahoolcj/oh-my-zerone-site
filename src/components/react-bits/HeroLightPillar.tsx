@@ -26,7 +26,7 @@ export function HeroLightPillar() {
       pillarHeight={0.4}
       noiseIntensity={0.5}
       pillarRotation={25}
-      quality="high"
+      quality="medium"
       mixBlendMode="screen"
       interactive={false}
       className="pointer-events-none"

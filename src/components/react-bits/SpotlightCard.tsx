@@ -5,7 +5,7 @@
  */
 'use client';
 
-import { useRef, type PropsWithChildren, type MouseEventHandler } from 'react';
+import { useRef, useEffect, type PropsWithChildren, type MouseEventHandler } from 'react';
 import './SpotlightCard.css';
 
 interface SpotlightCardProps extends PropsWithChildren {
@@ -19,18 +19,39 @@ const SpotlightCard = ({
   spotlightColor = 'rgba(16, 185, 129, 0.18)',
 }: SpotlightCardProps) => {
   const divRef = useRef<HTMLDivElement>(null);
+  const pointerRafRef = useRef<number | null>(null);
+  const pendingPointerRef = useRef<{ x: number; y: number } | null>(null);
 
   const handleMouseMove: MouseEventHandler<HTMLDivElement> = (e) => {
-    if (!divRef.current) return;
+    const el = divRef.current;
+    if (!el) return;
 
-    const rect = divRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+    const rect = el.getBoundingClientRect();
+    pendingPointerRef.current = {
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+    };
 
-    divRef.current.style.setProperty('--mouse-x', `${x}px`);
-    divRef.current.style.setProperty('--mouse-y', `${y}px`);
-    divRef.current.style.setProperty('--spotlight-color', spotlightColor);
+    if (pointerRafRef.current !== null) return;
+
+    pointerRafRef.current = requestAnimationFrame(() => {
+      pointerRafRef.current = null;
+      const pending = pendingPointerRef.current;
+      const target = divRef.current;
+      if (!pending || !target) return;
+      target.style.setProperty('--mouse-x', `${pending.x}px`);
+      target.style.setProperty('--mouse-y', `${pending.y}px`);
+      target.style.setProperty('--spotlight-color', spotlightColor);
+    });
   };
+
+  useEffect(() => {
+    return () => {
+      if (pointerRafRef.current !== null) {
+        cancelAnimationFrame(pointerRafRef.current);
+      }
+    };
+  }, []);
 
   return (
     <div ref={divRef} onMouseMove={handleMouseMove} className={`card-spotlight ${className}`}>

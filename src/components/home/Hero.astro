@@ -3,8 +3,9 @@
  * @by oh-my-zerone
  * @date 2026-06-10
  */
-import { HeroLightPillar } from '@/components/react-bits';
-import { HeroInstallChip, StaggerReveal } from '@/components/motion-ui';
+import { HeroLightPillar } from '@/components/react-bits/HeroLightPillar';
+import { HeroInstallChip } from '@/components/motion-ui/HeroInstallChip';
+import { StaggerReveal } from '@/components/motion-ui/StaggerReveal';
 import { SITE_CONFIG } from '@/constants/site';
 import { getUi, localizePath, type Locale } from '@/i18n';
 
@@ -21,7 +22,7 @@ const badgeLabel = locale === 'zh' ? 'AI Coding 套件' : 'AI Coding Suite';
   <HeroLightPillar client:load />
 
   <div class="relative z-10 mx-auto flex min-h-[100dvh] max-w-7xl flex-col items-center justify-center px-6 py-20 text-center md:px-10 md:py-24">
-    <StaggerReveal client:load>
+    <StaggerReveal client:idle>
       <div class="hero-badge">
         <span class="hero-badge-tag">{SITE_CONFIG.siteAbbr}</span>
         <span class="hero-badge-text">{badgeLabel}</span>
@@ -51,7 +52,7 @@ const badgeLabel = locale === 'zh' ? 'AI Coding 套件' : 'AI Coding Suite';
       </div>
 
       <HeroInstallChip
-        client:load
+        client:idle
         cmds={SITE_CONFIG.heroInstallCommands}
         copyLabel={ui.copy}
         copiedLabel={ui.copied}

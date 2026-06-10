@@ -90,6 +90,8 @@ const BorderGlow: FC<BorderGlowProps> = ({
   fillOpacity = 0.35,
 }) => {
   const cardRef = useRef<HTMLDivElement>(null);
+  const pointerRafRef = useRef<number | null>(null);
+  const pendingPointerRef = useRef<{ x: number; y: number } | null>(null);
 
   const getCenterOfElement = useCallback((el: HTMLElement) => {
     const { width, height } = el.getBoundingClientRect();
@@ -118,20 +120,41 @@ const BorderGlow: FC<BorderGlowProps> = ({
     return degrees;
   }, [getCenterOfElement]);
 
+  const applyPointer = useCallback((card: HTMLDivElement, x: number, y: number) => {
+    const edge = getEdgeProximity(card, x, y);
+    const angle = getCursorAngle(card, x, y);
+    card.style.setProperty('--edge-proximity', `${(edge * 100).toFixed(3)}`);
+    card.style.setProperty('--cursor-angle', `${angle.toFixed(3)}deg`);
+  }, [getEdgeProximity, getCursorAngle]);
+
   const handlePointerMove = useCallback((e: PointerEvent<HTMLDivElement>) => {
     const card = cardRef.current;
     if (!card) return;
 
     const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+    pendingPointerRef.current = {
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+    };
 
-    const edge = getEdgeProximity(card, x, y);
-    const angle = getCursorAngle(card, x, y);
+    if (pointerRafRef.current !== null) return;
 
-    card.style.setProperty('--edge-proximity', `${(edge * 100).toFixed(3)}`);
-    card.style.setProperty('--cursor-angle', `${angle.toFixed(3)}deg`);
-  }, [getEdgeProximity, getCursorAngle]);
+    pointerRafRef.current = requestAnimationFrame(() => {
+      pointerRafRef.current = null;
+      const pending = pendingPointerRef.current;
+      const target = cardRef.current;
+      if (!pending || !target) return;
+      applyPointer(target, pending.x, pending.y);
+    });
+  }, [applyPointer]);
+
+  useEffect(() => {
+    return () => {
+      if (pointerRafRef.current !== null) {
+        cancelAnimationFrame(pointerRafRef.current);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     if (!animated || !cardRef.current) return;

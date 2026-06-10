@@ -322,12 +322,28 @@ const LightPillar: React.FC<LightPillarProps> = ({
       container.addEventListener('mousemove', handleMouseMove, { passive: true });
     }
 
-    // Animation loop with fixed timestep
+    // Animation loop with fixed timestep; pause when off-screen or tab hidden
     let lastTime = performance.now();
+    let inViewport = true;
+    let pageVisible = !document.hidden;
     const targetFPS = effectiveQuality === 'low' ? 30 : 60;
     const frameTime = 1000 / targetFPS;
 
+    const shouldAnimate = () => inViewport && pageVisible;
+
+    const stopLoop = () => {
+      if (rafRef.current !== null) {
+        cancelAnimationFrame(rafRef.current);
+        rafRef.current = null;
+      }
+    };
+
     const animate = (currentTime: number) => {
+      if (!shouldAnimate()) {
+        rafRef.current = null;
+        return;
+      }
+
       if (!materialRef.current || !rendererRef.current || !sceneRef.current || !cameraRef.current) return;
 
       const deltaTime = currentTime - lastTime;
@@ -336,7 +352,6 @@ const LightPillar: React.FC<LightPillarProps> = ({
         timeRef.current += 0.016 * rotationSpeedRef.current;
         materialRef.current.uniforms.uTime.value = timeRef.current;
 
-        // Pre-compute rotation on CPU
         const rotAngle = timeRef.current * 0.3;
         materialRef.current.uniforms.uRotCos.value = Math.cos(rotAngle);
         materialRef.current.uniforms.uRotSin.value = Math.sin(rotAngle);
@@ -347,7 +362,34 @@ const LightPillar: React.FC<LightPillarProps> = ({
 
       rafRef.current = requestAnimationFrame(animate);
     };
-    rafRef.current = requestAnimationFrame(animate);
+
+    const startLoop = () => {
+      if (!shouldAnimate() || rafRef.current !== null) return;
+      lastTime = performance.now();
+      rafRef.current = requestAnimationFrame(animate);
+    };
+
+    const syncAnimationState = () => {
+      if (shouldAnimate()) startLoop();
+      else stopLoop();
+    };
+
+    const intersectionObserver = new IntersectionObserver(
+      ([entry]) => {
+        inViewport = entry.isIntersecting;
+        syncAnimationState();
+      },
+      { threshold: 0 },
+    );
+    intersectionObserver.observe(container);
+
+    const handleVisibilityChange = () => {
+      pageVisible = !document.hidden;
+      syncAnimationState();
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    syncAnimationState();
 
     // Handle resize with debouncing
     let resizeTimeout: number | null = null;
@@ -369,13 +411,13 @@ const LightPillar: React.FC<LightPillarProps> = ({
 
     // Cleanup
     return () => {
+      intersectionObserver.disconnect();
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
       window.removeEventListener('resize', handleResize);
       if (interactive) {
         container.removeEventListener('mousemove', handleMouseMove);
       }
-      if (rafRef.current) {
-        cancelAnimationFrame(rafRef.current);
-      }
+      stopLoop();
       if (rendererRef.current) {
         rendererRef.current.dispose();
         rendererRef.current.forceContextLoss();

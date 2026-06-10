@@ -3,9 +3,10 @@
  * @by oh-my-zerone
  * @date 2026-06-10
  */
-import { EvolutionGrid } from '@/components/react-bits';
+import { EvolutionGrid } from '@/components/react-bits/EvolutionGrid';
+import { EvolutionStepsGrid } from '@/components/react-bits/EvolutionStepsGrid';
 import Reveal from '@/components/ui/Reveal.astro';
-import { EVOLUTION_CARDS } from '@/constants/evolution';
+import { EVOLUTION_CARDS, EVOLUTION_SUMMARY_STEPS } from '@/constants/evolution';
 import { getUi, localizePath, type Locale } from '@/i18n';
 
 interface Props {
@@ -14,7 +15,15 @@ interface Props {
 
 const { locale } = Astro.props;
 const ui = getUi(locale);
-const items = EVOLUTION_CARDS.map((card) => ({
+
+const summarySteps = EVOLUTION_SUMMARY_STEPS.map((step) => ({
+  id: step.id,
+  title: locale === 'zh' ? step.titleZh : step.titleEn,
+  summary: locale === 'zh' ? step.summaryZh : step.summaryEn,
+  flowSteps: locale === 'zh' ? step.flowStepsZh : step.flowStepsEn,
+}));
+
+const targetItems = EVOLUTION_CARDS.map((card) => ({
   title: locale === 'zh' ? card.titleZh : card.titleEn,
   description: locale === 'zh' ? card.descriptionZh : card.descriptionEn,
   files: card.files,
@@ -25,12 +34,20 @@ const items = EVOLUTION_CARDS.map((card) => ({
   <div class="mx-auto max-w-7xl px-4">
     <Reveal>
       <h2 class="text-3xl font-semibold tracking-tight md:text-4xl">{ui.evolutionTitle}</h2>
-      <p class="mt-3 max-w-3xl text-lg font-medium text-[var(--color-text-primary)]">{ui.evolutionLobster}</p>
-      <p class="mt-3 max-w-2xl text-[var(--color-text-secondary)]">{ui.evolutionSubtitle}</p>
+      <p class="mt-3 max-w-2xl text-lg font-medium text-[var(--color-text-primary)]">{ui.evolutionSubtitle}</p>
+      <p class="mt-3 max-w-3xl text-sm leading-relaxed text-[var(--color-text-secondary)]">{ui.evolutionAgentRole}</p>
     </Reveal>
 
     <div class="mt-10">
-      <EvolutionGrid client:visible items={items} />
+      <EvolutionStepsGrid client:visible steps={summarySteps} />
+    </div>
+
+    <Reveal class="mt-14">
+      <h3 class="text-xl font-semibold tracking-tight text-[var(--color-text-primary)]">{ui.evolutionTargetsTitle}</h3>
+    </Reveal>
+
+    <div class="mt-6">
+      <EvolutionGrid client:visible items={targetItems} />
     </div>
 
     <div class="mt-8">

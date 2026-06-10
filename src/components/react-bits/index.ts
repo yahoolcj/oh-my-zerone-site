@@ -10,6 +10,7 @@ export { default as SpotlightCard } from './SpotlightCard';
 export { default as BorderGlow } from './BorderGlow';
 export { PainPointsGrid, type PainPointItem } from './PainPointsGrid';
 export { EvolutionGrid, type EvolutionItem } from './EvolutionGrid';
+export { EvolutionStepsGrid, type EvolutionSummaryItem } from './EvolutionStepsGrid';
 export { StructureBento, type StructureModule } from './StructureBento';
 export { SkillsSpotlightGrid, type SkillCardItem } from './SkillsSpotlightGrid';
 export { QuickStartGrid, type QuickStartItem } from './QuickStartGrid';
