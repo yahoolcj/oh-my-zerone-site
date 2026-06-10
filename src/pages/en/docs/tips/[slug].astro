@@ -1,0 +1,41 @@
+---
+/**
+ * @by oh-my-zerone
+ * @date 2026-07-18
+ *
+ * 使用技巧详情页（英文）。
+ */
+import { getCollection } from 'astro:content';
+import DocsLayout from '@/layouts/DocsLayout.astro';
+import ProseArticle from '@/components/docs/ProseArticle.astro';
+import { getUi } from '@/i18n';
+
+export async function getStaticPaths() {
+  const tips = await getCollection('tips');
+  return tips.map((tip) => ({
+    params: { slug: tip.id },
+  }));
+}
+
+const ui = getUi('en');
+
+const { slug } = Astro.params;
+const tips = await getCollection('tips');
+const tip = tips.find((t) => t.id === slug);
+if (!tip) throw new Error(`Tip not found: ${slug}`);
+
+const { Content } = await tip.render();
+---
+
+<DocsLayout locale="en" currentPath={`/en/docs/tips/${tip.id}`} title={tip.data.titleEn} activeSlug="tips">
+  <ProseArticle>
+    <Fragment slot="header">
+      <h1>{tip.data.titleEn}</h1>
+      <p class="text-[var(--color-text-secondary)]">{tip.data.summaryEn}</p>
+    </Fragment>
+    <a href="/en/docs/tips" class="mb-6 inline-block text-sm text-[var(--color-accent)] transition hover:text-[var(--color-accent-hover)]">
+      {ui.tipsBackToList}
+    </a>
+    <Content />
+  </ProseArticle>
+</DocsLayout>

@@ -4,6 +4,7 @@
  * @date 2026-06-10
  */
 import DocsLayout from '@/layouts/DocsLayout.astro';
+import ProseArticle from '@/components/docs/ProseArticle.astro';
 import { getSkillBySlug, getAllSkills } from '@/lib/skills';
 import { renderMarkdown } from '@/lib/markdown';
 
@@ -20,9 +21,11 @@ const html = renderMarkdown(skill.body);
 ---
 
 <DocsLayout locale="zh" currentPath={`/docs/skills/${skill.slug}`} title={skill.name} activeSlug="skills">
-  <article class="prose-docs">
-    <h1>/{skill.name}</h1>
-    <p class="text-[var(--color-text-secondary)]">{skill.descriptionZh}</p>
+  <ProseArticle>
+    <Fragment slot="header">
+      <h1>/{skill.name}</h1>
+      <p class="text-[var(--color-text-secondary)]">{skill.descriptionZh}</p>
+    </Fragment>
     <div set:html={html} />
-  </article>
+  </ProseArticle>
 </DocsLayout>

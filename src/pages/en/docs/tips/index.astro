@@ -1,0 +1,35 @@
+---
+/**
+ * @by oh-my-zerone
+ * @date 2026-07-18
+ *
+ * 使用技巧列表索引页（英文）。
+ */
+import { getCollection } from 'astro:content';
+import DocsLayout from '@/layouts/DocsLayout.astro';
+import { getUi, localizePath } from '@/i18n';
+
+const allTips = await getCollection('tips');
+const tips = allTips.sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
+const ui = getUi('en');
+---
+
+<DocsLayout locale="en" currentPath="/en/docs/tips" title={ui.tipsIndexTitle} activeSlug="tips">
+  <div class="prose-docs">
+    <h1>{ui.tipsIndexTitle}</h1>
+    <p>{ui.tipsSubtitle}</p>
+  </div>
+  <div class="mt-8 grid gap-3">
+    {
+      tips.map((tip) => (
+        <a
+          href={localizePath(`/docs/tips/${tip.id}`, 'en')}
+          class="flex flex-col gap-1 rounded-[var(--radius-md)] border border-[var(--color-border)] px-4 py-3 transition hover:border-[var(--color-accent)] sm:flex-row sm:items-center sm:justify-between sm:gap-2"
+        >
+          <span class="text-sm font-medium text-[var(--color-text-primary)]">{tip.data.titleEn}</span>
+          <span class="shrink-0 text-sm text-[var(--color-text-secondary)] sm:ml-4">{tip.data.summaryEn}</span>
+        </a>
+      ))
+    }
+  </div>
+</DocsLayout>

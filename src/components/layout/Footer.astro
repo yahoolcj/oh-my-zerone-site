@@ -27,6 +27,12 @@ const ui = getUi(locale);
       >
         {ui.footerDocs}
       </a>
+      <a
+        href={localizePath('/docs/tips', locale)}
+        class="text-[var(--color-text-secondary)] transition hover:text-[var(--color-accent)]"
+      >
+        {ui.footerTips}
+      </a>
       <span class="font-mono text-[var(--color-text-muted)]">v{SITE_CONFIG.version}</span>
     </div>
   </div>

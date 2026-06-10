@@ -53,5 +53,12 @@ export interface UiStrings {
   docsSkills: string;
   installNoteInternal: string;
   installNotePublic: string;
+  tipsTitle: string;
+  tipsSubtitle: string;
+  tipsViewAll: string;
+  tipsBackToList: string;
+  navTips: string;
+  tipsIndexTitle: string;
+  footerTips: string;
 }
 

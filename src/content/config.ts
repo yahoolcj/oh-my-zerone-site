@@ -20,4 +20,15 @@ const skills = defineCollection({
   loader: glob({ pattern: '**/SKILL.md', base: './.omz/skills' }),
 });
 
-export const collections = { docs, skills };
+const tips = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/tips' }),
+  schema: z.object({
+    titleZh: z.string(),
+    titleEn: z.string(),
+    summaryZh: z.string(),
+    summaryEn: z.string(),
+    order: z.number().default(99),
+  }),
+});
+
+export const collections = { docs, skills, tips };

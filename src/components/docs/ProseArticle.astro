@@ -1,0 +1,15 @@
+---
+/**
+ * @by oh-my-zerone
+ * @date 2026-07-18
+ *
+ * 通用 prose 文章容器。
+ * - header 具名插槽：标题/副标题区域
+ * - 默认插槽：正文 HTML（通常为 renderMarkdown 输出）
+ */
+---
+
+<article class="prose-docs">
+  <slot name="header" />
+  <slot />
+</article>

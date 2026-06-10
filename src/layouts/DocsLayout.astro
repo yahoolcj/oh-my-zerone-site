@@ -13,7 +13,7 @@ interface Props {
   locale: Locale;
   currentPath: string;
   title: string;
-  activeSlug: 'overview' | 'install' | 'structure' | 'evolution' | 'skills';
+  activeSlug: 'overview' | 'install' | 'structure' | 'evolution' | 'skills' | 'tips';
 }
 
 const { locale, currentPath, title, activeSlug } = Astro.props;
@@ -25,6 +25,7 @@ const navItems = [
   { slug: 'structure' as const, label: ui.docsStructure, href: localizePath('/docs/structure', locale) },
   { slug: 'evolution' as const, label: ui.docsEvolution, href: localizePath('/docs/evolution', locale) },
   { slug: 'skills' as const, label: ui.docsSkills, href: localizePath('/docs/skills', locale) },
+  { slug: 'tips' as const, label: ui.navTips, href: localizePath('/docs/tips', locale) },
 ];
 ---
 

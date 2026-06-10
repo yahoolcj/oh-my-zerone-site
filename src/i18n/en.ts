@@ -49,5 +49,12 @@ export const en: UiStrings = {
   docsSkills: 'Skills',
   installNoteInternal: 'Full install steps for internal teams',
   installNotePublic: 'Use your team internal npm registry for CLI install',
+  tipsTitle: 'Usage Tips',
+  tipsSubtitle: 'Practical tips to get the most out of omz',
+  tipsViewAll: 'View all tips',
+  tipsBackToList: '← Back to tips',
+  navTips: 'Tips',
+  tipsIndexTitle: 'Usage Tips',
+  footerTips: 'Tips',
 };
 

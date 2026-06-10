@@ -49,5 +49,12 @@ export const zh: UiStrings = {
   docsSkills: 'Skills',
   installNoteInternal: '以下为团队内网完整安装步骤',
   installNotePublic: '请使用团队内部 npm registry 完成 CLI 安装',
+  tipsTitle: '使用技巧',
+  tipsSubtitle: '一些实用的使用技巧，帮你更好地发挥 omz 的能力',
+  tipsViewAll: '查看全部技巧',
+  tipsBackToList: '← 返回技巧列表',
+  navTips: '使用技巧',
+  tipsIndexTitle: '使用技巧',
+  footerTips: '使用技巧',
 };
 
