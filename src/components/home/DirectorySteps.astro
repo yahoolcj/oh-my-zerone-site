@@ -1,0 +1,156 @@
+---
+/**
+ * @by oh-my-zerone
+ * @date 2026-06-10
+ */
+import Reveal from '@/components/ui/Reveal.astro';
+import { DIRECTORY_STEPS } from '@/constants/directory-steps';
+import { getUi, localizePath, type Locale } from '@/i18n';
+
+interface Props {
+  locale: Locale;
+  variant?: 'compact' | 'full';
+}
+
+const { locale, variant = 'compact' } = Astro.props;
+const ui = getUi(locale);
+const isFull = variant === 'full';
+---
+
+<section class:list={['border-t border-[var(--color-border)]', isFull ? 'py-0' : 'py-20 md:py-24']}>
+  <div class:list={[isFull ? '' : 'mx-auto max-w-7xl px-4']}>
+    {
+      !isFull && (
+        <Reveal>
+          <h2 class="text-3xl font-semibold tracking-tight md:text-4xl">{ui.directoryTitle}</h2>
+          <p class="mt-3 max-w-2xl text-[var(--color-text-secondary)]">{ui.directorySubtitle}</p>
+        </Reveal>
+      )
+    }
+
+    {
+      isFull && (
+        <h2 class="mb-6 text-2xl font-semibold tracking-tight">{ui.directoryTitleFull}</h2>
+      )
+    }
+
+    <div class:list={['grid gap-4', isFull ? 'md:grid-cols-3' : 'mt-10 md:grid-cols-3']}>
+      {
+        DIRECTORY_STEPS.map((step) => (
+          <Reveal>
+            <article class="h-full rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface-elevated)] p-5">
+              <span class="font-mono text-sm text-[var(--color-accent)]">0{step.step}</span>
+              <h3 class="mt-2 text-lg font-semibold">
+                {locale === 'zh' ? step.titleZh : step.titleEn}
+              </h3>
+              <p class="mt-2 text-sm text-[var(--color-text-secondary)]">
+                {locale === 'zh' ? step.descriptionZh : step.descriptionEn}
+              </p>
+              <div class="mt-4 rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-surface-muted)] p-3 font-mono text-sm">
+                {
+                  step.step === 1 && (
+                    <div class="space-y-1 text-[var(--color-text-primary)]">
+                      <div>{locale === 'zh' ? '项目根目录/' : 'project-root/'}</div>
+                      <div class="pl-4 text-[var(--color-accent)]">docs/</div>
+                    </div>
+                  )
+                }
+                {
+                  step.step === 2 && (
+                    <div class="space-y-1 text-[var(--color-text-primary)]">
+                      <div>{locale === 'zh' ? '项目根目录/' : 'project-root/'}</div>
+                      {step.items.map((item) => (
+                        <div class="pl-4 text-[var(--color-accent)]">{item}</div>
+                      ))}
+                    </div>
+                  )
+                }
+                {
+                  step.step === 3 && (
+                    <div class="space-y-3">
+                      <div class="directory-editor-tabs flex gap-2" data-step="3">
+                        <button
+                          type="button"
+                          data-editor="cursor"
+                          class="editor-tab active rounded-[var(--radius-sm)] border border-[var(--color-accent)] bg-[var(--color-accent-muted)] px-2.5 py-1 text-xs font-medium text-[var(--color-accent)]"
+                        >
+                          .cursor/
+                        </button>
+                        <button
+                          type="button"
+                          data-editor="trae"
+                          class="editor-tab rounded-[var(--radius-sm)] border border-[var(--color-border)] px-2.5 py-1 text-xs text-[var(--color-text-muted)]"
+                        >
+                          .trae/
+                        </button>
+                      </div>
+                      <div class="directory-tree text-[var(--color-text-primary)]" data-editor-panel="cursor">
+                        <div>.cursor/</div>
+                        <div class="pl-4 text-[var(--color-accent)]">rules/</div>
+                        <div class="pl-4 text-[var(--color-accent)]">skills/</div>
+                      </div>
+                      <div class="directory-tree hidden text-[var(--color-text-primary)]" data-editor-panel="trae">
+                        <div>.trae/</div>
+                        <div class="pl-4 text-[var(--color-accent)]">rules/</div>
+                        <div class="pl-4 text-[var(--color-accent)]">skills/</div>
+                      </div>
+                    </div>
+                  )
+                }
+              </div>
+            </article>
+          </Reveal>
+        ))
+      }
+    </div>
+
+    <div class:list={['mt-6 grid gap-4 sm:grid-cols-2', isFull ? '' : 'mt-8']}>
+      <div class="rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-surface)] p-4">
+        <p class="text-sm font-semibold text-[var(--color-text-primary)]">{ui.directoryRootLabel}</p>
+        <p class="mt-2 font-mono text-xs text-[var(--color-text-secondary)]">
+          docs/ + AGENTS.md + CONTEXT.md + CONTEXT-MAP.md
+        </p>
+      </div>
+      <div class="rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-surface)] p-4">
+        <p class="text-sm font-semibold text-[var(--color-text-primary)]">{ui.directoryEditorLabel}</p>
+        <p class="mt-2 font-mono text-xs text-[var(--color-text-secondary)]">
+          .cursor/ or .trae/ + rules/ + skills/
+        </p>
+      </div>
+    </div>
+
+    {
+      !isFull && (
+        <div class="mt-8">
+          <a
+            href={localizePath('/docs/install', locale)}
+            class="text-sm font-medium text-[var(--color-accent)] transition hover:text-[var(--color-accent-hover)]"
+          >
+            {ui.directoryLink}
+          </a>
+        </div>
+      )
+    }
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll('.directory-editor-tabs').forEach((tabs) => {
+    const container = tabs.closest('article');
+    if (!container) return;
+    tabs.querySelectorAll('.editor-tab').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const editor = (btn as HTMLButtonElement).dataset.editor;
+        tabs.querySelectorAll('.editor-tab').forEach((b) => {
+          b.classList.remove('active', 'border-[var(--color-accent)]', 'bg-[var(--color-accent-muted)]', 'text-[var(--color-accent)]');
+          b.classList.add('border-[var(--color-border)]', 'text-[var(--color-text-muted)]');
+        });
+        btn.classList.add('active', 'border-[var(--color-accent)]', 'bg-[var(--color-accent-muted)]', 'text-[var(--color-accent)]');
+        btn.classList.remove('border-[var(--color-border)]', 'text-[var(--color-text-muted)]');
+        container.querySelectorAll('[data-editor-panel]').forEach((panel) => {
+          panel.classList.toggle('hidden', (panel as HTMLElement).dataset.editorPanel !== editor);
+        });
+      });
+    });
+  });
+</script>

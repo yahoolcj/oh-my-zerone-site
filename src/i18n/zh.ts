@@ -1,0 +1,51 @@
+/**
+ * @by oh-my-zerone
+ * @date 2026-06-10
+ */
+import type { UiStrings } from './types';
+
+export const zh: UiStrings = {
+  navDocs: '文档',
+  navSkills: 'Skills',
+  heroTitle: '让 AI 在真实项目里稳定交付',
+  heroSubtitle:
+    'oh-my-zerone 把需求澄清、PRD、编码、测试、review 拆成可组合的 Skills，约束 Agent 按规格推进。',
+  heroCta: '查看文档',
+  heroCtaSecondary: '浏览 Skills',
+  copy: '复制',
+  copied: '已复制',
+  painTitle: '传统 AI Coding 的失控瞬间',
+  painSubtitle: '一句话需求直接跳到代码，真实项目里很快出问题',
+  evolutionTitle: '授权式自主进化',
+  evolutionLobster: '不做一次性外包 AI，做项目里的龙虾。',
+  evolutionSubtitle:
+    '有钳（Skills 约束）、有壳（权限边界）、会进化（授权沉淀）。Agent 识别值得保留的 memory、knowledge、skill 与 rule，但必须经你确认后才写入长期资产。',
+  evolutionLink: '了解进化机制',
+  structureTitle: 'omz 套件结构',
+  structureSubtitle: 'AGENTS、Docs、Knowledge、Rules、Skills 各司其职，可组合可追踪',
+  structureLink: '查看完整结构说明',
+  directoryTitle: '目录怎么落盘',
+  directorySubtitle: '三步把 omz 放进目标项目，根目录与编辑器目录分工明确',
+  directoryTitleFull: '目录配置三步',
+  directoryRootLabel: '项目根目录',
+  directoryEditorLabel: '编辑器目录',
+  directoryLink: '查看完整安装与配置',
+  editorsTitle: '不限 AI 编辑器',
+  editorsSubtitle: '一套 Skills，接入 Cursor、Claude Code、Codex、Trae 等工具',
+  skillsTitle: '当前 Skills',
+  skillsSubtitle: '每个 Skill 只负责一个阶段，可单独安装或组合使用',
+  skillsViewAll: '查看全部',
+  quickStartTitle: '快速开始',
+  quickStartSubtitle: '三步完成安装与首次项目扫描',
+  quickStartLink: '完整安装指南',
+  footerDocs: '文档',
+  footerTagline: 'Harness Engineering for frontend AI Coding',
+  docsOverview: '概述',
+  docsInstall: '安装',
+  docsStructure: '套件结构',
+  docsEvolution: '自主进化',
+  docsSkills: 'Skills',
+  installNoteInternal: '以下为团队内网完整安装步骤',
+  installNotePublic: '请使用团队内部 npm registry 完成 CLI 安装',
+};
+

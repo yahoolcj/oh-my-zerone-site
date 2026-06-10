@@ -1,0 +1,43 @@
+---
+/**
+ * @by oh-my-zerone
+ * @date 2026-06-10
+ */
+import { QuickStartGrid } from '@/components/react-bits';
+import Reveal from '@/components/ui/Reveal.astro';
+import { QUICK_START_STEPS } from '@/constants/quick-start';
+import { getUi, localizePath, type Locale } from '@/i18n';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const ui = getUi(locale);
+const steps = QUICK_START_STEPS.map((step) => ({
+  title: locale === 'zh' ? step.titleZh : step.titleEn,
+  command: step.command,
+}));
+---
+
+<section class="border-t border-[var(--color-border)] bg-[var(--color-surface-elevated)] py-20 md:py-24">
+  <div class="mx-auto max-w-7xl px-4">
+    <Reveal>
+      <h2 class="text-3xl font-semibold tracking-tight md:text-4xl">{ui.quickStartTitle}</h2>
+      <p class="mt-3 max-w-2xl text-[var(--color-text-secondary)]">{ui.quickStartSubtitle}</p>
+    </Reveal>
+
+    <div class="mt-10">
+      <QuickStartGrid client:visible steps={steps} />
+    </div>
+
+    <div class="mt-8">
+      <a
+        href={localizePath('/docs/install', locale)}
+        class="inline-flex items-center text-sm font-medium text-[var(--color-accent)] transition hover:text-[var(--color-accent-hover)]"
+      >
+        {ui.quickStartLink}
+      </a>
+    </div>
+  </div>
+</section>

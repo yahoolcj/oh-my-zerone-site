@@ -1,0 +1,26 @@
+---
+/**
+ * @by oh-my-zerone
+ * @date 2026-06-10
+ */
+import DirectorySteps from '@/components/home/DirectorySteps.astro';
+import Editors from '@/components/home/Editors.astro';
+import Evolution from '@/components/home/Evolution.astro';
+import Hero from '@/components/home/Hero.astro';
+import PackageStructure from '@/components/home/PackageStructure.astro';
+import PainPoints from '@/components/home/PainPoints.astro';
+import QuickStart from '@/components/home/QuickStart.astro';
+import SkillsGrid from '@/components/home/SkillsGrid.astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+---
+
+<BaseLayout locale="en" currentPath="/en/">
+  <Hero locale="en" />
+  <PainPoints locale="en" />
+  <Evolution locale="en" />
+  <PackageStructure locale="en" />
+  <DirectorySteps locale="en" />
+  <Editors locale="en" />
+  <SkillsGrid locale="en" limit={9} />
+  <QuickStart locale="en" />
+</BaseLayout>

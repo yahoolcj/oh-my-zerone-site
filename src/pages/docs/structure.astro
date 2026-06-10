@@ -1,0 +1,19 @@
+---
+/**
+ * @by oh-my-zerone
+ * @date 2026-06-10
+ */
+import DocsLayout from '@/layouts/DocsLayout.astro';
+import { getDocEntry } from '@/lib/docs';
+import { render } from 'astro:content';
+
+const entry = await getDocEntry('zh', 'structure');
+if (!entry) throw new Error('structure doc not found');
+const { Content } = await render(entry);
+---
+
+<DocsLayout locale="zh" currentPath="/docs/structure" title={entry.data.title} activeSlug="structure">
+  <article class="prose-docs">
+    <Content />
+  </article>
+</DocsLayout>

@@ -1,0 +1,52 @@
+---
+/**
+ * @by oh-my-zerone
+ * @date 2026-06-10
+ */
+import { SkillsSpotlightGrid } from '@/components/react-bits';
+import Reveal from '@/components/ui/Reveal.astro';
+import { getAllSkills } from '@/lib/skills';
+import { getUi, localizePath, type Locale } from '@/i18n';
+
+interface Props {
+  locale: Locale;
+  limit?: number;
+}
+
+const { locale, limit } = Astro.props;
+const ui = getUi(locale);
+const allSkills = getAllSkills();
+const displaySkills = limit ? allSkills.slice(0, limit) : allSkills;
+const skills = displaySkills.map((skill) => ({
+  slug: skill.slug,
+  name: skill.name,
+  category: skill.category,
+  description: locale === 'zh' ? skill.descriptionZh : skill.descriptionEn,
+  href: localizePath(`/docs/skills/${skill.slug}`, locale),
+}));
+---
+
+<section class="border-t border-[var(--color-border)] py-20 md:py-24">
+  <div class="mx-auto max-w-7xl px-4">
+    <div class="flex flex-wrap items-end justify-between gap-4">
+      <Reveal>
+        <h2 class="text-3xl font-semibold tracking-tight md:text-4xl">{ui.skillsTitle}</h2>
+        <p class="mt-3 max-w-2xl text-[var(--color-text-secondary)]">{ui.skillsSubtitle}</p>
+      </Reveal>
+      {
+        limit && (
+          <a
+            href={localizePath('/docs/skills', locale)}
+            class="text-sm font-medium text-[var(--color-accent)] transition hover:text-[var(--color-accent-hover)]"
+          >
+            {ui.skillsViewAll}
+          </a>
+        )
+      }
+    </div>
+
+    <div class="mt-10">
+      <SkillsSpotlightGrid client:visible skills={skills} />
+    </div>
+  </div>
+</section>

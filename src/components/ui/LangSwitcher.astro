@@ -1,0 +1,46 @@
+---
+/**
+ * @by oh-my-zerone
+ * @date 2026-06-10
+ */
+import { LOCALES, switchLocalePath, type Locale } from '@/i18n';
+
+interface Props {
+  locale: Locale;
+  currentPath: string;
+  variant?: 'default' | 'glass';
+}
+
+const { locale, currentPath, variant = 'default' } = Astro.props;
+---
+
+<div
+  class:list={[
+    'lang-switcher flex items-center gap-1 p-0.5 text-sm',
+    variant === 'glass'
+      ? 'rounded-full border border-white/10 bg-black/20'
+      : 'rounded-[var(--radius-sm)] border border-[var(--color-border)]',
+  ]}
+>
+  {
+    LOCALES.map((item) => {
+      const href = switchLocalePath(currentPath, item.code);
+      const active = item.code === locale;
+      return (
+        <a
+          href={href}
+          class:list={[
+            'px-2.5 py-1 font-medium transition',
+            variant === 'glass' ? 'rounded-full' : 'rounded',
+            active
+              ? 'bg-[var(--color-accent-muted)] text-[var(--color-accent)]'
+              : 'text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)]',
+          ]}
+          aria-current={active ? 'page' : undefined}
+        >
+          {item.label}
+        </a>
+      );
+    })
+  }
+</div>

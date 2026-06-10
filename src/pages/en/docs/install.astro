@@ -1,0 +1,28 @@
+---
+/**
+ * @by oh-my-zerone
+ * @date 2026-06-10
+ */
+import DirectorySteps from '@/components/home/DirectorySteps.astro';
+import DocsLayout from '@/layouts/DocsLayout.astro';
+import { getUi } from '@/i18n';
+import { getDocEntry } from '@/lib/docs';
+import { render } from 'astro:content';
+
+const entry = await getDocEntry('en', 'install');
+if (!entry) throw new Error('install doc not found');
+const { Content } = await render(entry);
+const ui = getUi('en');
+---
+
+<DocsLayout locale="en" currentPath="/en/docs/install" title={entry.data.title} activeSlug="install">
+  <p class="mb-6 rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-surface-muted)] px-4 py-3 text-sm text-[var(--color-text-secondary)]">
+    {ui.installNotePublic}
+  </p>
+  <article class="prose-docs">
+    <Content />
+  </article>
+  <div class="mt-12">
+    <DirectorySteps locale="en" variant="full" />
+  </div>
+</DocsLayout>

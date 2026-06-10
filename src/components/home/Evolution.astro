@@ -1,0 +1,45 @@
+---
+/**
+ * @by oh-my-zerone
+ * @date 2026-06-10
+ */
+import { EvolutionGrid } from '@/components/react-bits';
+import Reveal from '@/components/ui/Reveal.astro';
+import { EVOLUTION_CARDS } from '@/constants/evolution';
+import { getUi, localizePath, type Locale } from '@/i18n';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const ui = getUi(locale);
+const items = EVOLUTION_CARDS.map((card) => ({
+  title: locale === 'zh' ? card.titleZh : card.titleEn,
+  description: locale === 'zh' ? card.descriptionZh : card.descriptionEn,
+  files: card.files,
+}));
+---
+
+<section class="border-t border-[var(--color-border)] bg-[var(--color-surface-elevated)] py-20 md:py-24">
+  <div class="mx-auto max-w-7xl px-4">
+    <Reveal>
+      <h2 class="text-3xl font-semibold tracking-tight md:text-4xl">{ui.evolutionTitle}</h2>
+      <p class="mt-3 max-w-3xl text-lg font-medium text-[var(--color-text-primary)]">{ui.evolutionLobster}</p>
+      <p class="mt-3 max-w-2xl text-[var(--color-text-secondary)]">{ui.evolutionSubtitle}</p>
+    </Reveal>
+
+    <div class="mt-10">
+      <EvolutionGrid client:visible items={items} />
+    </div>
+
+    <div class="mt-8">
+      <a
+        href={localizePath('/docs/evolution', locale)}
+        class="inline-flex items-center rounded-[var(--radius-md)] border border-[var(--color-border)] px-4 py-2 text-sm font-medium text-[var(--color-text-primary)] transition hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] active:scale-[0.98]"
+      >
+        {ui.evolutionLink}
+      </a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,28 @@
+---
+/**
+ * @by oh-my-zerone
+ * @date 2026-06-10
+ */
+import DocsLayout from '@/layouts/DocsLayout.astro';
+import { getSkillBySlug, getAllSkills } from '@/lib/skills';
+import { renderMarkdown } from '@/lib/markdown';
+
+export function getStaticPaths() {
+  return getAllSkills().map((skill) => ({
+    params: { slug: skill.slug },
+  }));
+}
+
+const { slug } = Astro.params;
+const skill = getSkillBySlug(slug!);
+if (!skill) throw new Error(`Skill not found: ${slug}`);
+const html = renderMarkdown(skill.body);
+---
+
+<DocsLayout locale="en" currentPath={`/en/docs/skills/${skill.slug}`} title={skill.name} activeSlug="skills">
+  <article class="prose-docs">
+    <h1>/{skill.name}</h1>
+    <p class="text-[var(--color-text-secondary)]">{skill.descriptionEn}</p>
+    <div set:html={html} />
+  </article>
+</DocsLayout>

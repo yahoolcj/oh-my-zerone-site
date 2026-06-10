@@ -1,0 +1,32 @@
+---
+/**
+ * @by oh-my-zerone
+ * @date 2026-06-10
+ */
+import DocsLayout from '@/layouts/DocsLayout.astro';
+import { getAllSkills } from '@/lib/skills';
+import { getUi, localizePath } from '@/i18n';
+
+const skills = getAllSkills();
+const ui = getUi('en');
+---
+
+<DocsLayout locale="en" currentPath="/en/docs/skills" title={ui.docsSkills} activeSlug="skills">
+  <div class="prose-docs">
+    <h1>{ui.docsSkills}</h1>
+    <p>{ui.skillsSubtitle}</p>
+  </div>
+  <div class="mt-8 grid gap-3">
+    {
+      skills.map((skill) => (
+        <a
+          href={localizePath(`/docs/skills/${skill.slug}`, 'en')}
+          class="flex items-center justify-between rounded-[var(--radius-md)] border border-[var(--color-border)] px-4 py-3 transition hover:border-[var(--color-accent)]"
+        >
+          <code class="font-mono text-sm text-[var(--color-accent)]">/{skill.name}</code>
+          <span class="text-sm text-[var(--color-text-secondary)]">{skill.descriptionEn}</span>
+        </a>
+      ))
+    }
+  </div>
+</DocsLayout>

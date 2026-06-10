@@ -1,0 +1,37 @@
+---
+/**
+ * @by oh-my-zerone
+ * @date 2026-06-10
+ */
+import Footer from '@/components/layout/Footer.astro';
+import Header from '@/components/layout/Header.astro';
+import { SITE_CONFIG } from '@/constants/site';
+import type { Locale } from '@/i18n';
+import '@/styles/global.css';
+
+interface Props {
+  locale: Locale;
+  currentPath: string;
+  title?: string;
+  description?: string;
+}
+
+const { locale, currentPath, title, description } = Astro.props;
+const pageTitle = title ? `${title} | ${SITE_CONFIG.siteName}` : SITE_CONFIG.siteName;
+---
+
+<!doctype html>
+<html lang={locale === 'zh' ? 'zh-CN' : 'en'}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description ?? 'oh-my-zerone AI Coding harness suite for frontend teams'} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <title>{pageTitle}</title>
+  </head>
+  <body class="min-h-[100dvh] bg-[var(--color-surface)] text-[var(--color-text-primary)]">
+    <Header locale={locale} currentPath={currentPath} />
+    <slot />
+    <Footer locale={locale} />
+  </body>
+</html>

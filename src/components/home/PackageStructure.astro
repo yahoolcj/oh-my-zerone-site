@@ -1,0 +1,47 @@
+---
+/**
+ * @by oh-my-zerone
+ * @date 2026-06-10
+ */
+import { StructureBento } from '@/components/react-bits';
+import Reveal from '@/components/ui/Reveal.astro';
+import { STRUCTURE_MODULES } from '@/constants/structure';
+import { getUi, localizePath, type Locale } from '@/i18n';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const ui = getUi(locale);
+const modules = STRUCTURE_MODULES.map((mod, index) => ({
+  id: mod.id,
+  title: locale === 'zh' ? mod.titleZh : mod.titleEn,
+  description: locale === 'zh' ? mod.descriptionZh : mod.descriptionEn,
+  filesPreview: `${mod.files.slice(0, 2).join('  ')}${mod.files.length > 2 ? '  ...' : ''}`,
+  href: `${localizePath('/docs/structure', locale)}#${mod.id}`,
+  spanClass: index < 2 ? 'md:col-span-3' : 'md:col-span-2',
+}));
+---
+
+<section class="border-t border-[var(--color-border)] py-20 md:py-24">
+  <div class="mx-auto max-w-7xl px-4">
+    <Reveal>
+      <h2 class="text-3xl font-semibold tracking-tight md:text-4xl">{ui.structureTitle}</h2>
+      <p class="mt-3 max-w-2xl text-[var(--color-text-secondary)]">{ui.structureSubtitle}</p>
+    </Reveal>
+
+    <div class="mt-10">
+      <StructureBento client:visible modules={modules} />
+    </div>
+
+    <div class="mt-8">
+      <a
+        href={localizePath('/docs/structure', locale)}
+        class="text-sm font-medium text-[var(--color-accent)] transition hover:text-[var(--color-accent-hover)]"
+      >
+        {ui.structureLink}
+      </a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,61 @@
+---
+/**
+ * @by oh-my-zerone
+ * @date 2026-06-10
+ */
+import { HeroLightPillar } from '@/components/react-bits';
+import { HeroInstallChip, StaggerReveal } from '@/components/motion-ui';
+import { SITE_CONFIG } from '@/constants/site';
+import { getUi, localizePath, type Locale } from '@/i18n';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const ui = getUi(locale);
+const badgeLabel = locale === 'zh' ? 'AI Coding 套件' : 'AI Coding Suite';
+---
+
+<section class="hero-section relative isolate min-h-[100dvh] w-full overflow-hidden">
+  <HeroLightPillar client:load />
+
+  <div class="relative z-10 mx-auto flex min-h-[100dvh] max-w-7xl flex-col items-center justify-center px-6 py-20 text-center md:px-10 md:py-24">
+    <StaggerReveal client:load>
+      <div class="hero-badge">
+        <span class="hero-badge-tag">{SITE_CONFIG.siteAbbr}</span>
+        <span class="hero-badge-text">{badgeLabel}</span>
+      </div>
+
+      <h1 class="hero-headline mt-8 max-w-4xl text-[var(--color-text-primary)]">
+        {ui.heroTitle}
+      </h1>
+
+      <p class="hero-subline mx-auto mt-5 max-w-2xl text-base leading-relaxed text-[var(--color-text-secondary)] md:text-lg">
+        {ui.heroSubtitle}
+      </p>
+
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+        <a
+          href={localizePath('/docs/overview', locale)}
+          class="hero-cta-primary inline-flex items-center rounded-full px-6 py-2.5 text-sm font-semibold transition active:scale-[0.98]"
+        >
+          {ui.heroCta}
+        </a>
+        <a
+          href={localizePath('/docs/skills', locale)}
+          class="hero-cta-secondary inline-flex items-center rounded-full border px-6 py-2.5 text-sm font-medium transition active:scale-[0.98]"
+        >
+          {ui.heroCtaSecondary}
+        </a>
+      </div>
+
+      <HeroInstallChip
+        client:load
+        cmds={SITE_CONFIG.heroInstallCommands}
+        copyLabel={ui.copy}
+        copiedLabel={ui.copied}
+      />
+    </StaggerReveal>
+  </div>
+</section>

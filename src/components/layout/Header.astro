@@ -1,0 +1,51 @@
+---
+/**
+ * @by oh-my-zerone
+ * @date 2026-06-10
+ */
+import LangSwitcher from '@/components/ui/LangSwitcher.astro';
+import { SITE_CONFIG } from '@/constants/site';
+import { getLocalePrefix, getUi, localizePath, type Locale } from '@/i18n';
+
+interface Props {
+  locale: Locale;
+  currentPath: string;
+}
+
+const { locale, currentPath } = Astro.props;
+const ui = getUi(locale);
+const prefix = getLocalePrefix(locale);
+---
+
+<header class="site-header">
+  <div class="site-header-pill">
+    <a
+      href={prefix || '/'}
+      class="site-header-brand truncate font-semibold tracking-tight text-[var(--color-text-primary)]"
+    >
+      {SITE_CONFIG.brandDisplayName}
+    </a>
+
+    <nav class="site-header-nav flex items-center gap-2 text-sm font-medium sm:gap-4">
+      <a
+        href={localizePath('/docs/overview', locale)}
+        class="site-header-link hidden sm:inline"
+      >
+        {ui.navDocs}
+      </a>
+      <a
+        href={localizePath('/docs/skills', locale)}
+        class="site-header-link hidden md:inline"
+      >
+        {ui.navSkills}
+      </a>
+      <LangSwitcher locale={locale} currentPath={currentPath} variant="glass" />
+      <a
+        href={localizePath('/docs/install', locale)}
+        class="site-header-cta shrink-0 rounded-full px-4 py-1.5 text-sm font-semibold transition active:scale-[0.98]"
+      >
+        {ui.docsInstall}
+      </a>
+    </nav>
+  </div>
+</header>
