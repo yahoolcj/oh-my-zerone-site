@@ -56,5 +56,7 @@ export const en: UiStrings = {
   navTips: 'Tips',
   tipsIndexTitle: 'Usage Tips',
   footerTips: 'Tips',
+  faqTitle: 'FAQ',
+  faqSubtitle: 'Common questions about skill triggers, workflows, and permission boundaries',
 };
 

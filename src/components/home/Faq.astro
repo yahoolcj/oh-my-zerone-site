@@ -1,0 +1,38 @@
+---
+/**
+ * @by oh-my-zerone
+ * @date 2026-06-11
+ *
+ * 首页「常见问题」区块。
+ * 从 constants/faq 读取 9 条 FAQ，FaqAccordion 手风琴渲染。
+ */
+import { FaqAccordion } from '@/components/react-bits/FaqAccordion';
+import Reveal from '@/components/ui/Reveal.astro';
+import { FAQ_ITEMS } from '@/constants/faq';
+import { getUi, type Locale } from '@/i18n';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const ui = getUi(locale);
+
+const items = FAQ_ITEMS.map((item) => ({
+  question: locale === 'zh' ? item.questionZh : item.questionEn,
+  answer: locale === 'zh' ? item.answerZh : item.answerEn,
+}));
+---
+
+<section class="border-t border-[var(--color-border)] py-20 md:py-24">
+  <div class="mx-auto max-w-7xl px-4">
+    <Reveal>
+      <h2 class="text-3xl font-semibold tracking-tight md:text-4xl">{ui.faqTitle}</h2>
+      <p class="mt-3 max-w-2xl text-[var(--color-text-secondary)]">{ui.faqSubtitle}</p>
+    </Reveal>
+
+    <div class="mt-10">
+      <FaqAccordion client:visible items={items} />
+    </div>
+  </div>
+</section>

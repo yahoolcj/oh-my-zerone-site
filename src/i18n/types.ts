@@ -60,5 +60,7 @@ export interface UiStrings {
   navTips: string;
   tipsIndexTitle: string;
   footerTips: string;
+  faqTitle: string;
+  faqSubtitle: string;
 }
 

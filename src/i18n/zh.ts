@@ -56,5 +56,7 @@ export const zh: UiStrings = {
   navTips: '使用技巧',
   tipsIndexTitle: '使用技巧',
   footerTips: '使用技巧',
+  faqTitle: '常见问题',
+  faqSubtitle: '关于 Skills 触发、流程选择、权限边界的常见疑问',
 };
 

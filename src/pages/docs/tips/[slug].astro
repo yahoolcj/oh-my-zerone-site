@@ -6,7 +6,7 @@
  * 使用技巧详情页（中文）。
  * 从 Content Collection `tips` 读取，ProseArticle 渲染 Markdown 正文。
  */
-import { getCollection, type CollectionEntry } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import DocsLayout from '@/layouts/DocsLayout.astro';
 import ProseArticle from '@/components/docs/ProseArticle.astro';
 import { getUi } from '@/i18n';
@@ -25,7 +25,7 @@ const tips = await getCollection('tips');
 const tip = tips.find((t) => t.id === slug);
 if (!tip) throw new Error(`Tip not found: ${slug}`);
 
-const { Content } = await tip.render();
+const { Content } = await render(tip);
 ---
 
 <DocsLayout locale="zh" currentPath={`/docs/tips/${tip.id}`} title={tip.data.titleZh} activeSlug="tips">
