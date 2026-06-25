@@ -17,7 +17,7 @@ const docs = defineCollection({
 });
 
 const skills = defineCollection({
-  loader: glob({ pattern: '**/SKILL.md', base: './.omz/skills' }),
+  loader: glob({ pattern: '**/SKILL.md', base: './packages/omz/skills' }),
 });
 
 const tips = defineCollection({
