@@ -62,5 +62,11 @@ export interface UiStrings {
   footerTips: string;
   faqTitle: string;
   faqSubtitle: string;
+  skillsFilterAll: string;
+  skillsFilterClarify: string;
+  skillsFilterPlan: string;
+  skillsFilterDevelop: string;
+  skillsFilterReview: string;
+  skillsFilterUtility: string;
 }
 

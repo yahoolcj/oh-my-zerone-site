@@ -58,5 +58,11 @@ export const zh: UiStrings = {
   footerTips: '使用技巧',
   faqTitle: '常见问题',
   faqSubtitle: '关于 Skills 触发、流程选择、权限边界的常见疑问',
+  skillsFilterAll: '全部',
+  skillsFilterClarify: '澄清',
+  skillsFilterPlan: '计划',
+  skillsFilterDevelop: '开发',
+  skillsFilterReview: '审查',
+  skillsFilterUtility: '工具',
 };
 

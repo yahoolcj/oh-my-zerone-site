@@ -4,6 +4,7 @@
  * @date 2026-06-10
  */
 import DocsLayout from '@/layouts/DocsLayout.astro';
+import TerminalChrome from '@/components/docs/TerminalChrome.astro';
 import { getSkillBySlug, getAllSkills } from '@/lib/skills';
 import { renderMarkdown } from '@/lib/markdown';
 
@@ -16,13 +17,36 @@ export function getStaticPaths() {
 const { slug } = Astro.params;
 const skill = getSkillBySlug(slug!);
 if (!skill) throw new Error(`Skill not found: ${slug}`);
-const html = renderMarkdown(skill.body);
+
+const showcaseBody = skill.showcaseEn;
+const splitIdx = showcaseBody.indexOf('\n## Example Effects');
+const scenarioMd = splitIdx !== -1 ? showcaseBody.slice(0, splitIdx) : showcaseBody;
+const exampleMd = splitIdx !== -1 ? showcaseBody.slice(splitIdx) : '';
+const scenarioHtml = renderMarkdown(scenarioMd);
+const exampleHtml = exampleMd ? renderMarkdown(exampleMd) : '';
 ---
 
 <DocsLayout locale="en" currentPath={`/en/docs/skills/${skill.slug}`} title={skill.name} activeSlug="skills">
   <article class="prose-docs">
     <h1>/{skill.name}</h1>
     <p class="text-[var(--color-text-secondary)]">{skill.descriptionEn}</p>
-    <div set:html={html} />
   </article>
+
+  <!-- Use Scenario (prose style) -->
+  {
+    scenarioHtml && (
+      <div class="prose-docs mt-8" set:html={scenarioHtml} />
+    )
+  }
+
+  <!-- Example Effects (terminal style) -->
+  {
+    exampleHtml && (
+      <div class="mt-8">
+        <TerminalChrome>
+          <div set:html={exampleHtml} />
+        </TerminalChrome>
+      </div>
+    )
+  }
 </DocsLayout>

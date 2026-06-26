@@ -6,27 +6,31 @@
 import DocsLayout from '@/layouts/DocsLayout.astro';
 import { getAllSkills } from '@/lib/skills';
 import { getUi, localizePath } from '@/i18n';
+import SkillGrid from '@/components/react-bits/SkillGrid';
 
 const skills = getAllSkills();
 const ui = getUi('zh');
+
+const filterLabels = {
+  all: ui.skillsFilterAll,
+  clarify: ui.skillsFilterClarify,
+  plan: ui.skillsFilterPlan,
+  develop: ui.skillsFilterDevelop,
+  review: ui.skillsFilterReview,
+  utility: ui.skillsFilterUtility,
+};
 ---
 
 <DocsLayout locale="zh" currentPath="/docs/skills" title={ui.docsSkills} activeSlug="skills">
-  <div class="prose-docs">
+  <div class="prose-docs mb-6">
     <h1>{ui.docsSkills}</h1>
     <p>{ui.skillsSubtitle}</p>
   </div>
-  <div class="mt-8 grid gap-3">
-    {
-      skills.map((skill) => (
-        <a
-          href={localizePath(`/docs/skills/${skill.slug}`, 'zh')}
-          class="flex items-center justify-between rounded-[var(--radius-md)] border border-[var(--color-border)] px-4 py-3 transition hover:border-[var(--color-accent)]"
-        >
-          <code class="font-mono text-sm text-[var(--color-accent)]">/{skill.name}</code>
-          <span class="text-sm text-[var(--color-text-secondary)]">{skill.descriptionZh}</span>
-        </a>
-      ))
-    }
-  </div>
+  <SkillGrid
+    skills={skills}
+    filterLabels={filterLabels}
+    basePath={localizePath('/docs/skills', 'zh')}
+    locale="zh"
+    client:load
+  />
 </DocsLayout>

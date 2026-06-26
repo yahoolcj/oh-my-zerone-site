@@ -58,5 +58,11 @@ export const en: UiStrings = {
   footerTips: 'Tips',
   faqTitle: 'FAQ',
   faqSubtitle: 'Common questions about skill triggers, workflows, and permission boundaries',
+  skillsFilterAll: 'All',
+  skillsFilterClarify: 'Clarify',
+  skillsFilterPlan: 'Plan',
+  skillsFilterDevelop: 'Develop',
+  skillsFilterReview: 'Review',
+  skillsFilterUtility: 'Utility',
 };
 
