@@ -1,6 +1,3 @@
-<!--
-  @by oh-my-zerone
--->
 ---
 name: grill-from-draft
 description: 基于已有需求草稿或设计文档进行深度追问，先补全文档完整性（模糊术语、缺失决策、内部矛盾），再遍历设计树发现新分支，最终产出 `*_grilled.md` 共识文件。当用户已有初步文档需要打磨澄清时使用。 / Start from an existing draft requirements or design document and relentlessly interview the user. First fill in completeness gaps (vague terms, missing decisions, internal contradictions), then walk the design tree for new branches. Produces a `*_grilled.md` consensus file. Use when the user already has a preliminary document that needs refining.
