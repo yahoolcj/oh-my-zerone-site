@@ -55,8 +55,8 @@ const t = {
     en: 'Default Model',
   },
   tip: {
-    zh: '提示：API Key 通过 zerone set vision-apikey 写入后存储在本地，不会上传到任何服务器。',
-    en: 'Tip: API Keys are stored locally via zerone set vision-apikey and are never uploaded to any server.',
+    zh: '提示：API Key 通过 zerone omz set vision-apikey 写入后存储在本地，不会上传到任何服务器。',
+    en: 'Tip: API Keys are stored locally via zerone omz set vision-apikey and are never uploaded to any server.',
   },
 }
 
@@ -146,7 +146,7 @@ export default function VisionConfigGuide({ locale = 'zh' }: Props) {
             </span>
           </div>
           <pre className="overflow-x-auto p-4 text-sm font-mono text-[var(--color-text)]">
-{`$ zerone set vision-apikey`}
+{`$ zerone omz set vision-apikey`}
           </pre>
         </div>
         <p className="mt-2 text-sm text-[var(--color-text-muted)]">

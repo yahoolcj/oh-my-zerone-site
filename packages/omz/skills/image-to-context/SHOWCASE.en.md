@@ -2,7 +2,7 @@
 
 When your coding model (e.g., DeepSeek, GLM) lacks vision capabilities, use `/image-to-context` to convert screenshots, design mockups, error logs, or architecture diagrams into structured text context via an external vision model API. The result is automatically injected into the current conversation, ready for `/to-coding` or other downstream skills.
 
-> **Prerequisite**: Requires `zerone/cli >= 0.8.0` and `zerone set vision-apikey` to configure the vision model API key. See configuration guide below.
+> **Prerequisite**: Requires `zerone/cli >= 0.8.0` and `zerone omz set vision-apikey` to configure the vision model API key. See configuration guide below.
 
 ## Usage
 

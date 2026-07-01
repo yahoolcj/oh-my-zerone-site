@@ -2,7 +2,7 @@
 
 当你使用的编码模型（如 DeepSeek、GLM）不具备识图能力时，用 `/image-to-context` 将截图/设计稿/报错/架构图通过外部视觉模型 API 转化为结构化文本上下文，自动注入当前对话，后续可直接 `/to-coding` 开发。
 
-> **前置依赖**：需要 `zerone/cli >= 0.8.0` 并执行 `zerone set vision-apikey` 配置视觉模型 API Key。详见下方配置指南。
+> **前置依赖**：需要 `zerone/cli >= 0.8.0` 并执行 `zerone omz set vision-apikey` 配置视觉模型 API Key。详见下方配置指南。
 
 ## 使用方式
 
