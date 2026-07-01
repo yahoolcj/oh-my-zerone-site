@@ -5,6 +5,7 @@
  */
 import DocsLayout from '@/layouts/DocsLayout.astro';
 import TerminalChrome from '@/components/docs/TerminalChrome.astro';
+import VisionConfigGuide from '@/components/react-bits/VisionConfigGuide';
 import { getSkillBySlug, getAllSkills } from '@/lib/skills';
 import { renderMarkdown } from '@/lib/markdown';
 
@@ -47,6 +48,13 @@ const exampleHtml = exampleMd ? renderMarkdown(exampleMd) : '';
           <div set:html={exampleHtml} />
         </TerminalChrome>
       </div>
+    )
+  }
+
+  <!-- Vision Config Guide (image-to-context only) -->
+  {
+    slug === 'image-to-context' && (
+      <VisionConfigGuide locale="zh" client:load />
     )
   }
 </DocsLayout>

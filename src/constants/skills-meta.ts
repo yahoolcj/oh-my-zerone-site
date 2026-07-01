@@ -35,6 +35,13 @@ export const SKILLS_META: SkillMeta[] = [
     category: 'clarify',
   },
   {
+    slug: 'grill-from-draft',
+    name: 'grill-from-draft',
+    descriptionZh: '基于已有文档深度追问，补全模糊点并发现新分支',
+    descriptionEn: 'Deep-dive interview from existing docs to fill gaps and uncover new branches',
+    category: 'clarify',
+  },
+  {
     slug: 'grill-me-ui',
     name: 'grill-me-ui',
     descriptionZh: 'UI 开发前澄清界面呈现与验收口径',
@@ -131,6 +138,13 @@ export const SKILLS_META: SkillMeta[] = [
     descriptionZh: '极简压缩沟通模式，节省 token',
     descriptionEn: 'Ultra-compressed communication mode to save tokens',
     category: 'utility',
+  },
+  {
+    slug: 'image-to-context',
+    name: 'image-to-context',
+    descriptionZh: '通过视觉模型 API 识图，注入对话上下文供编码使用',
+    descriptionEn: 'Recognize images via vision model API and inject context for coding',
+    category: 'clarify',
   },
 ];
 

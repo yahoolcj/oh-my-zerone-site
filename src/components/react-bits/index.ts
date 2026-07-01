@@ -16,3 +16,4 @@ export { SkillsSpotlightGrid, type SkillCardItem } from './SkillsSpotlightGrid';
 export { QuickStartGrid, type QuickStartItem } from './QuickStartGrid';
 export { EditorsGlowGrid, type EditorItem } from './EditorsGlowGrid';
 export { default as SkillGrid } from './SkillGrid';
+export { default as VisionConfigGuide } from './VisionConfigGuide';

@@ -115,24 +115,7 @@ export default function SkillGrid({ skills, filterLabels, basePath, locale }: Pr
               {isZh ? skill.descriptionZh : skill.descriptionEn}
             </p>
 
-            {/* Code Snippet (Terminal Style) */}
-            {(isZh ? skill.snippetZh : skill.snippetEn) && (
-              <div className="mt-auto overflow-hidden rounded-[var(--radius-sm)] border border-[var(--color-border)] bg-[var(--color-surface)]">
-                <div className="flex items-center gap-1.5 border-b border-[var(--color-border)] px-3 py-1.5">
-                  <span className="h-2.5 w-2.5 rounded-full bg-[#ef4444]" />
-                  <span className="h-2.5 w-2.5 rounded-full bg-[#f59e0b]" />
-                  <span className="h-2.5 w-2.5 rounded-full bg-[#10b981]" />
-                </div>
-                <pre className="overflow-x-auto p-3 text-xs leading-relaxed text-[var(--color-text-secondary)]">
-                  <code className="font-mono text-[var(--color-text-secondary)]">
-                    {(() => {
-                      const raw = isZh ? skill.snippetZh : skill.snippetEn;
-                      return raw.length > 240 ? raw.slice(0, 240) + '...' : raw;
-                    })()}
-                  </code>
-                </pre>
-              </div>
-            )}
+
           </motion.a>
         ))}
       </div>
