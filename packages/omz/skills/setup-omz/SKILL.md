@@ -1,6 +1,6 @@
 ---
 name: setup-omz
-description: 在用户第一次安装 oh-my-zerone 后执行项目初始化扫描。使用当前项目的 AGENTS.md、docs/agent/introduction.md、配置文件和目录结构，自动理解技术栈与项目结构，并生成或补全 docs/agent/introduction.md；记录技术结构、定位入口与轻量业务概览，不运行项目脚本。
+description: 首次进入新仓库时执行项目初始化扫描（ZERONE/DSH 模式下按需触发）。使用当前项目的配置文件和目录结构，自动理解技术栈与项目结构，并生成或补全 docs/agent/introduction.md；记录技术结构、定位入口与轻量业务概览，不运行项目脚本。
 ---
 
 @author: laicaijin
@@ -9,7 +9,7 @@ description: 在用户第一次安装 oh-my-zerone 后执行项目初始化扫�
 
 # Setup OMZ
 
-`/setup-omz` 用于用户首次安装 `oh-my-zerone` 后，对当前项目做一次技术结构初始化扫描，并生成或补全 `docs/agent/introduction.md`。
+`/setup-omz` 用于首次进入一个新仓库时，对当前项目做一次技术结构初始化扫描，并生成或补全 `docs/agent/introduction.md`。在 ZERONE（DSH 内置模式）下，机制已随模式内置，本 skill 只负责项目技术结构文档的按需生成。
 
 本 skill 是手动触发能力，不隶属于特定开发工作流。
 
@@ -59,6 +59,8 @@ description: 在用户第一次安装 oh-my-zerone 后执行项目初始化扫�
 4. `docs/agent/introduction.md`
 
 如果权限文件或进化文件不存在，仍可继续扫描，但必须在报告中说明缺失文件和影响。
+
+ZERONE（DSH）模式下，AGENTS.md 与机制文档（permission / evolution 等）已内置到模式，仓库中缺失是正常状态：跳过读取，不视为缺失。
 
 ## 维度体系（覆盖要求）
 
@@ -138,6 +140,8 @@ HTTP / RPC / GraphQL / WebSocket / 消息队列 consumer 等对外暴露的接�
 OMZ 套件目录。
 
 推断来源：`AGENTS.md`、`rules/`、`skills/`、`docs/agent/`。
+
+ZERONE（DSH）模式下机制已内置，仓库仅保留数据资产（memory.md、docs/knowledge/、evolution-log.md），按实际存在情况记录。
 
 ## 扫描原则
 

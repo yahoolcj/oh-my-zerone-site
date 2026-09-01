@@ -92,6 +92,19 @@ skills/to-commit
 
 如果只想使用部分能力，也可以只安装单个 skill。例如只想把讨论整理成 PRD，可以只接入 `to-prd`；只想做只读审查，可以只接入 `to-review`。
 
+## DSH 接入（DeepSeek Harness）
+
+OMZ 同时以 DSH 内置插件形态交付：`@vigalai/dsh-plugin-zerone`。安装后获得 **ZERONE 模式**（agent preset）—— 包含 DSH 标准模式全部能力 + OMZ 人格（自主进化、SDD 工作流、进化授权、用户确认、review 规范），以及 16 个内嵌技能（15 个 SDD 工作流技能 + omz-governance 机制技能）。技能经 `ctx.skills.register()` 全局注册，模型与用户命令双入口，**不落盘用户系统**；机制规则内置到模式，仓库不再需要拷贝 `AGENTS.md` 或机制文档。
+
+| 维度 | 编辑器形态（codex / cursor / trae） | DSH 插件形态（ZERONE） |
+|---|---|---|
+| 安装 | 拷贝 AGENTS.md / docs/agent / rules / skills 到仓库 | `dsh plugin` 装包（或 dsh-desktop 捆绑），零仓库拷贝 |
+| 机制规则 | 仓库内 `docs/agent/*` | 内置到模式 persona + omz-governance 技能 |
+| 仓库数据资产 | memory.md、docs/knowledge/、evolution-log.md、.PRD/、.ISSUES/ | 相同（ZERONE 下首次进入仓库自动创建） |
+| 技能 | `skills/` 目录按仓库安装 | 插件内嵌，全局注册 |
+
+选择建议：团队主要使用 DSH 时优先插件形态；多编辑器混用场景可保留仓库 `AGENTS.md` 供其他编辑器使用，DSH 侧使用 ZERONE 模式。
+
 ## 什么时候使用
 
 以下场景适合使用 `oh-my-zerone`：
