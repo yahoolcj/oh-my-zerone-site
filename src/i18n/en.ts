@@ -7,10 +7,10 @@ import type { UiStrings } from './types';
 export const en: UiStrings = {
   navDocs: 'Docs',
   navSkills: 'Skills',
-  heroTitle: 'Stable AI delivery in real projects',
+  heroTitle: 'Put a self-evolving, project-level Agent into your DSH',
   heroSubtitle:
-    'oh-my-zerone splits clarification, PRD, coding, testing, and review into composable Skills that keep Agents on spec.',
-  heroCta: 'Read docs',
+    'Install the oh-my-zerone DSH plugin to get the ZERONE preset and 16 SDD skills — clarification, PRD, issue, coding, locating, acceptance, and review, all steered by the Agent.',
+  heroCta: 'Install plugin',
   heroCtaSecondary: 'Browse Skills',
   copy: 'Copy',
   copied: 'Copied',
@@ -46,6 +46,7 @@ export const en: UiStrings = {
   docsInstall: 'Install',
   docsStructure: 'Structure',
   docsEvolution: 'Evolution',
+  docsDshPlugin: 'DSH Plugin',
   docsSkills: 'Skills',
   installNoteInternal: 'Full install steps for internal teams',
   installNotePublic: 'Use your team internal npm registry for CLI install',

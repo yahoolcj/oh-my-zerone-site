@@ -5,7 +5,7 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
 import type { Locale } from '@/i18n';
 
-export type DocSlug = 'overview' | 'install' | 'structure' | 'evolution';
+export type DocSlug = 'overview' | 'install' | 'structure' | 'evolution' | 'dsh-plugin';
 
 export async function getDocEntry(
   locale: Locale,

@@ -7,11 +7,11 @@ import type { UiStrings } from './types';
 export const zh: UiStrings = {
   navDocs: '文档',
   navSkills: 'Skills',
-  heroTitle: '让 AI 在真实项目里稳定交付',
+  heroTitle: '把会进化的项目级 Agent，装进你的 DSH',
   heroSubtitle:
-    'oh-my-zerone 把需求澄清、PRD、编码、测试、review 拆成可组合的 Skills，约束 Agent 按规格推进。',
-  heroCta: '查看文档',
-  heroCtaSecondary: '浏览 Skills',
+    '安装 oh-my-zerone 的 DSH 插件，获得 ZERONE 模式与 16 个 SDD 技能：澄清、PRD、issue、编码、定位、验收、审查，全流程由 Agent 掌舵。',
+  heroCta: '安装插件',
+  heroCtaSecondary: '浏览 Skill',
   copy: '复制',
   copied: '已复制',
   painTitle: '传统 AI Coding 的失控瞬间',
@@ -46,6 +46,7 @@ export const zh: UiStrings = {
   docsInstall: '安装',
   docsStructure: '套件结构',
   docsEvolution: '自主进化',
+  docsDshPlugin: 'DSH 插件',
   docsSkills: 'Skills',
   installNoteInternal: '以下为团队内网完整安装步骤',
   installNotePublic: '请使用团队内部 npm registry 完成 CLI 安装',

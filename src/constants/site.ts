@@ -8,8 +8,10 @@ export const SITE_CONFIG = {
   brandDisplayName: 'Oh My Zerone',
   siteAbbr: 'omz',
   defaultLocale: 'zh' as const,
-  heroInstallCmd: 'zerone setup omz',
-  heroInstallCommands: ['npm install @zerone/cli', 'zerone setup omz'],
+  heroInstallCmd: 'dsh plugin add @vigalai/dsh-plugin-zerone',
+  heroInstallCommands: [
+    '请你仔细阅读 https://github.com/yahoolcj/dsh-plugin-zerone/blob/main/install.md，并且安装这个插件。',
+  ],
   cliInstallCmd:
     'npm install -g @zerone/cli --registry=http://10.0.0.74:8081/repository/npm-group/',
   cliInstallCmdPublic: 'npm install -g @zerone/cli',

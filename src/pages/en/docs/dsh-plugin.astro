@@ -1,0 +1,19 @@
+---
+/**
+ * @by oh-my-zerone
+ * @date 2026-07-18
+ */
+import DocsLayout from '@/layouts/DocsLayout.astro';
+import { getDocEntry } from '@/lib/docs';
+import { render } from 'astro:content';
+
+const entry = await getDocEntry('en', 'dsh-plugin');
+if (!entry) throw new Error('dsh-plugin doc not found');
+const { Content } = await render(entry);
+---
+
+<DocsLayout locale="en" currentPath="/en/docs/dsh-plugin" title={entry.data.title} activeSlug="dsh-plugin">
+  <article class="prose-docs">
+    <Content />
+  </article>
+</DocsLayout>

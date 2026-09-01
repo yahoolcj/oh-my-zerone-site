@@ -3,3 +3,4 @@ dist/
 .astro/
 .bitfun/
 /.bitfun/search/flashgrep-index/
+packages/dsh-plugin-zerone/

@@ -15,7 +15,11 @@ interface Props {
 
 const { locale } = Astro.props;
 const ui = getUi(locale);
-const badgeLabel = locale === 'zh' ? 'AI Coding 套件' : 'AI Coding Suite';
+const badgeLabel = locale === 'zh' ? 'DSH 插件' : 'DSH Plugin';
+const installPrompt =
+  locale === 'zh'
+    ? [SITE_CONFIG.heroInstallCommands[0]]
+    : ['Please read https://github.com/yahoolcj/dsh-plugin-zerone/blob/main/install.md and install this plugin.'];
 ---
 
 <section class="hero-section relative isolate min-h-[100dvh] w-full overflow-hidden">
@@ -38,7 +42,7 @@ const badgeLabel = locale === 'zh' ? 'AI Coding 套件' : 'AI Coding Suite';
 
       <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
         <a
-          href={localizePath('/docs/overview', locale)}
+          href={localizePath('/docs/dsh-plugin', locale)}
           class="hero-cta-primary inline-flex items-center rounded-full px-6 py-2.5 text-sm font-semibold transition active:scale-[0.98]"
         >
           {ui.heroCta}
@@ -51,9 +55,14 @@ const badgeLabel = locale === 'zh' ? 'AI Coding 套件' : 'AI Coding Suite';
         </a>
       </div>
 
+      <p class="hero-install-hint mt-8 text-sm text-[var(--color-text-secondary)]">
+        {locale === 'zh' ? '复制下方内容给你的 dsh' : 'Copy the following to your dsh'}
+      </p>
+
       <HeroInstallChip
         client:idle
-        cmds={SITE_CONFIG.heroInstallCommands}
+        cmds={installPrompt}
+        variant="text"
         copyLabel={ui.copy}
         copiedLabel={ui.copied}
       />

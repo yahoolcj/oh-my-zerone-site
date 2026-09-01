@@ -50,6 +50,7 @@ export interface UiStrings {
   docsInstall: string;
   docsStructure: string;
   docsEvolution: string;
+  docsDshPlugin: string;
   docsSkills: string;
   installNoteInternal: string;
   installNotePublic: string;
