@@ -28,6 +28,14 @@
 
 严格按照工作流步骤进行任务实现，每次执行要明确开始来自哪个工作流，工作流是否执行结束？
 
+### DSH 升运行时线的强制契约校验
+
+DSH 每次升运行时线（含 `-rc.*` 序列），必须同步执行以下动作，再提交、再发布插件：
+
+1. 更新 `packages/dsh-plugin-zerone/package.json` 的 `@deepseek-ai/dsh*` peer 为**新运行时的精确版本**（DSH 按字面匹配区间，写 `^0.1.0-rc.8` 这类区间会被直接拒绝安装）。
+2. 跑契约校验：`node packages/dsh-plugin-zerone/scripts/verify-dsh-contract.mjs --catalog <新运行时包内 packages.md> --runtime <已装 profile 目录>`，确认 peer、preset 引用包名（退役包名会在此暴露，如 `dsh-workflow-worker-thread` → `dsh-workflow-ptc`）与 preset `config` 字段（上游改名会在此暴露，如 `dsh-persona.text` → `prefix`/`suffix`）全部对齐。
+3. 跑 `scripts/acceptance-test.mjs`，并核对 `docs/knowledge/dsh-platform.md` 的平台事实是否需要更新。
+
 
 ## Skills 技能
 
