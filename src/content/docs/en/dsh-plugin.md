@@ -42,6 +42,10 @@ Open DSH's **Plugin Market**, search **yahoolcj/dsh-plugin-zerone**, and one-cli
 
 *Switching to ZERONE gives the Agent the OMZ persona: self-evolving, SDD workflow, evolution authorization, user confirmation.*
 
+![Evolution proposal and confirmation](/images/dsh-plugin/evolution-approval.png)
+
+*When it finds persistable assets or docs drifting from code, the Agent files an `[进化申请-*]` proposal with A/B/C options and waits for your confirmation — nothing is created or modified before you approve.*
+
 ## ZERONE mode
 
 - **Positioning**: a full copy of the standard preset plus the OMZ persona — for teams that want the Agent to run the SDD workflow and own the project long-term inside DSH.

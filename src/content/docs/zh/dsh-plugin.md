@@ -43,6 +43,10 @@ omz 以 DSH 内置插件形态交付：`@vigalai/dsh-plugin-zerone`。安装后�
 
 *切到 ZERONE 后，Agent 获得 OMZ 人格：自主进化、SDD 工作流、进化授权、用户确认。*
 
+![进化申请与用户确认](/images/dsh-plugin/evolution-approval.png)
+
+*发现可沉淀资产或文档与代码不一致时，Agent 主动发起 `[进化申请-*]`，列出问题与 A/B/C 选项等你确认 —— 未确认前不创建、不修改任何文件。*
+
 ## ZERONE 模式
 
 - **定位**：标准模式的完整副本 + OMZ 人格。常用于需要在 DSH 环境里严格走 SDD 工作流、且由 Agent 全周期负责的场景。
