@@ -17,15 +17,15 @@ DSH 的能力单元，npm 包形态（导出 name / inject / Config / apply）�
 _避免使用_：模式、扩展
 
 **模式（Agent Preset）**：
-DSH 中可选的 Agent 组合形态：目录含 agent.cordis.yml（插件组合）+ preset.yml（展示元数据）+ 可选 skills/；本项目中的 ZERONE 模式随插件包内置，通过 persona 注入 AGENTS.md 内容。
-_避免使用_：profile、插件
+DSH 中可选的 Agent 组合形态：0.2.x 起由 bundle patch 内的一行 `@deepseek-ai/dsh-agent-preset` 声明描述（`id` / `name` / `description` / `order` / `plugins`），随插件包安装进 profile 即出现；本项目中的 ZERONE 模式随插件包内置（`presets/zerone.patch.yml`），通过 persona 注入 AGENTS.md 内容。
+_避免使用_：profile、插件、mode 目录
 
 **ZERONE 模式**：
 OMZ 的 DSH 模式名（preset id：zerone）。包含 DSH 标准模式的全部能力，在此之上叠加 OMZ 人格（自主进化 + SDD 工作流 + 进化授权 + 用户确认机制）与机制提示段；为可选模式，不改变默认设置。
 _避免使用_：omz 模式
 
 **技能（Skill）**：
-模型或用户可调用的指令单元；本项目技能内嵌于插件包，经 ctx.skills.register() 全局注册（运行时 rank 250），对全部会话可见，用户系统零落盘。OMZ 插件内置 15 个 SDD 工作流技能（grill-with-docs、grill-me、grill-from-draft、grill-me-ui、to-plan、to-prd、to-issues、to-coding、to-locate、to-explain、to-test、to-quality-review、to-review、to-commit、setup-omz）；排除 image-to-context、to-ui、frontend-design、caveman。
+模型或用户可调用的指令单元；本项目技能内嵌于插件包，经 ctx.skills.register() 全局注册（运行时 rank 250），对全部会话可见，用户系统零落盘。OMZ 插件内置 16 个技能：15 个 SDD 工作流技能（grill-with-docs、grill-me、grill-from-draft、grill-me-ui、to-plan、to-prd、to-issues、to-coding、to-locate、to-explain、to-test、to-quality-review、to-review、to-commit、setup-omz）+ 机制技能 omz-governance；排除 image-to-context、to-ui、frontend-design、caveman。
 _避免使用_：命令、脚本
 
 **项目级机制（Project-level Mechanism）**：
