@@ -26,19 +26,20 @@
 **skills**：通过 **/to-issues** 技能进行切片（如果有这个技能）。
 **用户确认**：是；
 
-### step4. [开发]
-**should do**：基于指定版本的PRD文档作为上下文需求进行coding开发，开发时必须遵循 **rules/coding.mdc**中的约束规则，一步步完成
-**don't**：开发完成后不要进行npm脚本尝试去验证内容，只负责等待用户验收。
-**skills**：通过 **/to-coding** 技能进行coding开发（如果有这个技能）。
+### step4. [TDD 开发]
+**should do**：基于指定版本的 PRD 文档作为上下文需求，按 issue 逐条进行 TDD 开发：对当前 issue 先执行 **/to-test red** 生成红绿灯清单与红证据，再按 **/to-coding** 逐条实现，最后由 **/to-test green** 判定灯。开发遵循 **rules/coding.mdc** 中的约束规则。
+**don't**：跳过 red 直接写实现（TDD 顺序不可颠倒）；红灯未处理完就推进下一个 issue；擅自勾选验收项；把黄灯当作绿灯。
+**skills**：先 **/to-test red**，再 **/to-coding**，最后 **/to-test green**。
 **用户确认**：自动；
 
 
-### step5. [测试] 
+### step5. [验收收口] 
 
-**should do**：进行issue和PRD TODO测试回收，想用户询问测试情况是否通过，如果不通过继续执行。
-**don't**：没有验收通过的issue禁止打勾。
+**should do**：对每个 issue 执行 **/to-test green** 重放红绿灯清单并判定灯；跨 issue 主干流程在端到端验收 issue 中跑绿；**全部为绿时自动勾选** issue 验收标准与对应 PRD TODOQ；输出灯统计、黄灯人工步骤与红灯返工单。
+**don't**：存在黄灯或红灯时禁止打勾；禁止把缺红证据的作废用例计入通过；禁止用人工点击替代浏览器全流程测试（无自动化能力时按黄灯附人工步骤）。
 **skills**：
-    1.通过 **/to-test** 技能进行测试回收。
+    1.通过 **/to-test** 技能执行 green 阶段并验收收口。
+**用户确认**：否（绿灯自动验收；黄灯需人工确认后才可转绿）。
 
 
 ### step6. [审查]

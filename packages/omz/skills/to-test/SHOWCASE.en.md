@@ -1,22 +1,22 @@
 ## Use Scenarios
 
-After development and before committing, use `/to-test` to verify each TODOQ item against the PRD. The Agent confirms pass/fail/pending for each item and outputs a concise test report. Failed items go back to fix.
+Split acceptance into two runs: `/to-test red` before coding generates a red-green checklist from issue acceptance criteria and produces failure evidence; `/to-test green` after coding replays the checklist — all-green auto-ticks acceptance items, yellow items go to manual confirmation, red items produce a rework ticket for `/to-coding`. Testing is full browser flow, no manual page-by-page clicking.
 
 ## Example Effects
 
 ```terminal
-$ /to-test
+$ /to-test red
 
-> Verifying against .PRD/2.1.0.md TODOQ:
+> Issue: .ISSUE/2.4.0-2-to-test-green-phase-and-auto-tick.md
+> Generated 6 cases (covers 4/4 acceptance criteria, 1 main flow)
+> Executor: orca-cli (Orca embedded browser)
+> App URL: http://127.0.0.1:3339 (reused running instance)
 
-> [✓] #1 SHOWCASE.md data sources — Pass: all 34 files present
-> [✓] #2 Extend skills data layer — Pass: getAllSkills() returns scenario/snippet
-> [✓] #3 List page revamp — Pass: 2-col grid + category filter working
-> [!] #4 Detail page revamp — Pending: terminal style contrast low in light mode
-> [ ] #5 i18n additions — Pending test
-> [ ] #6 Clean up old code — Pending test
+> [Red] RG-01 auto-tick on all-green — expected ticks did not happen (evidence: screenshots/RG-01-1.png)
+> [Red] RG-02 yellow manual steps — report missing manual steps
+> [Yellow] RG-03 visual assertion — pending manual confirmation
+> [Red] RG-04 red rework ticket — ticket missing
 
-> Test report:
-> 3/6 pass, 1/6 pending, 2/6 untested
-> Suggestion: fix #4 light mode contrast then re-test.
+> Red evidence: .TEST/2.4.0/2.4.0-2-2026-10-27T09-30-00/
+> Next: /to-coding
 ```

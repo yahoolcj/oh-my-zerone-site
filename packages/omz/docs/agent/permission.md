@@ -29,4 +29,6 @@ Agent需严格遵循 Permission 权限执行活动，禁止越权操作。
 - 自主创建skill。
 - 自主创建rules。
 - 自主创建项目记忆
+- 启动本地 dev/preview 服务并执行浏览器自动化验收（`/to-test red` / `/to-test green`）。
+- 写入 `.TEST/` 验收证据目录（仅本地，禁止入库）。
 

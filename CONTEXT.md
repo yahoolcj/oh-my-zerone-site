@@ -32,12 +32,28 @@ _避免使用_：命令、脚本
 OMZ 的长期记忆（docs/agent/memory.md）、知识库（docs/knowledge/）、进化日志（docs/agent/evolution-log.md）、PRD（.PRD/）、issue（.ISSUES/）等按项目仓库存放的数据资产；机制规则（进化授权、用户确认、review 规范）随模式内置。
 _避免使用_：全局记忆
 
+## 测试术语
+
+**红绿灯清单（Red-Green Checklist）**：
+嵌入 issue 文档的验收测试清单，每条用例同时记录 red 阶段的失败证据与 green 阶段的当前灯（绿 / 黄 / 红）。
+_避免使用_：测试报告、测试计划
+
+**红证据（Red Evidence）**：
+用例在实现落地之前执行所得的失败证据，包含执行器、时间、日志与截图路径；缺失红证据的用例作废，不得转绿。
+_避免使用_：失败日志、预期红
+
+**端到端验收 issue（End-to-end Acceptance Issue）**：
+承载跨 issue 主干流程红绿灯清单的收口 issue，其绿灯代表整份 PRD 的主干流程通过。
+_避免使用_：发布单、验收单
+
 ## 关系
 
 - 一个 **OMZ 插件** 携带 **ZERONE 模式（Agent Preset）** 与全部 **技能**
 - **ZERONE 模式** 通过 **persona** 注入 **AGENTS.md** 内容
 - **技能** 经 **ctx.skills.register()** 全局注册，模型视角等价于全局 skill 目录
 - **项目级机制** 的数据文件留在项目仓库，机制规则随模式内置
+- 一份 **issue** 携带一份 **红绿灯清单**；跨 issue 的主干流程由 **端到端验收 issue** 承载
+- 每条用例由一个 **红证据** 与当前灯组成；黄灯表示待人工确认，不得冒充绿灯
 - **进化授权 / [用户确认] / review** 以对话级流程纪律落地：红线常驻 persona，流程细节由 omz-governance 技能承载，危险写入由 DSH 沙箱与审批栈兜底
 
 ## 已标记的歧义

@@ -14,7 +14,7 @@
 - 再沉淀 PRD，减少口头信息丢失。
 - 再拆成 issue，让任务可以独立认领、独立验收。
 - 再按 PRD / TODOQ 顺序编码，避免范围蔓延。
-- 最后通过测试回收、review、commit / PR 收尾。
+- 最后通过红绿灯验收（red → green）、review、commit / PR 收尾。
 
 有以下特点：
 
@@ -114,7 +114,7 @@ OMZ 同时以 DSH 内置插件形态交付：`@vigalai/dsh-plugin-zerone`。安�
 - 希望把一段讨论整理成 PRD。
 - 希望把 PRD 拆成可独立认领和验收的 issue。
 - 希望 Agent 严格按 PRD / TODOQ 逐项开发。
-- 希望在交付前做测试回收或只读 review。
+- 希望在交付前做红绿灯验收或只读 review。
 - 希望对已写代码做建议型质量质检，而不是硬性验收。
 - 希望在发版前检查 issue、changelog 和版本信息。
 - 希望生成规范的 commit message 或 PR 描述。
@@ -136,8 +136,9 @@ OMZ 同时以 DSH 内置插件形态交付：`@vigalai/dsh-plugin-zerone`。安�
 → 建立计划
 → PRD 沉淀
 → issue 切片
+→ 红绿灯验收 red（编码前跑红）
 → 编码实现
-→ 测试回收
+→ 红绿灯验收 green（编码后跑绿、自动勾选）
 → 代码质量质检
 → review 审查
 → 发版确认
@@ -264,14 +265,17 @@ skills 是可独立触发的工作单元，每个 skill 只负责一个阶段。
 - 按 PRD 中 `- [ ]` TODOQ 从上到下执行。
 - 同一时间只聚焦一条未完成项。
 - 不做 PRD 之外的内容。
-- 未经用户验收，不擅自把 PRD 中的 TODO 勾选为完成。
-- 完成单条 TODO 后停止推进，等待用户验收。
+- 勾选权归 `/to-test green`：只有该 issue 全绿后才自动勾选，to-coding 不主动勾选。
+- 完成单条 TODO 后停止推进，等待 `/to-test green` 判定。
 
 #### to-test
 
-进行测试回收与验收。
+执行 TDD 红绿灯验收测试。
 
-它会先基于 `.ISSUES` 中各工单的验收标准做切片级验收，再对照 `CONTEXT.md` 或项目验收标准做整体验收。涉及真实交互体验、视觉还原、业务语义的部分需要用户确认。
+- `/to-test red`（编码前）：按 issue 验收标准生成红绿灯清单，逐用例跑出失败证据（红证据），证据落 `.TEST/`（仅本地，不入库）。
+- `/to-test green`（编码后）：重放清单并判定灯——全绿自动勾选 issue 验收标准与 PRD TODOQ；黄灯附人工验证步骤，需用户确认后才转绿；红灯输出返工单交 `/to-coding`。
+- 执行器按能力阶梯探测：项目内 Playwright → 浏览器类 MCP → 系统 Chromium headless CLI → orca-cli / computer-use → 人工步骤；无自动化能力的用例标黄，不冒充通过。
+- 不做单元测试，测试面是浏览器全流程行为。
 
 #### to-quality-review
 
@@ -327,8 +331,9 @@ PR 描述会包含本次改动说明、AI 辅助声明、开发者自查清单�
 → /grill-me-ui（如需先确认 UI 呈现效果）
 → /to-prd
 → /to-issues
+→ /to-test red（编码前生成清单、跑红证据）
 → /to-coding
-→ /to-test
+→ /to-test green（重放清单、全绿自动勾选）
 → /to-quality-review（如需代码质量建议）
 → /to-review
 → /to-commit
@@ -339,12 +344,13 @@ PR 描述会包含本次改动说明、AI 辅助声明、开发者自查清单�
 ### 现有功能修复和优化
 
 对于临时性调整或BUG修复等场景，往往不需要/grill-with-docs这样的澄清过程。
-可以使用 `/to-locate` 可以帮助我们快速定位需要调整的文件，并给出证明报告。确认没问题后直接交给 `/to-coding` 执行即可。
+可以使用 `/to-locate` 可以帮助我们快速定位需要调整的文件，并给出证明报告。确认没问题后按 TDD 顺序交给 `/to-coding` 执行即可。
 
 ```text
 /to-locate
-→ /to-coding
-→ /to-test
+→ /to-test red（先写会失败的回归用例）
+→ /to-coding（修复）
+→ /to-test green（重放清单）
 → /to-quality-review（如需代码质量建议）
 → /to-review
 → /to-commit
@@ -355,8 +361,9 @@ PR 描述会包含本次改动说明、AI 辅助声明、开发者自查清单�
 ```text
 /grill-me-ui
 → /to-locate（已有页面需要先定位改哪里）
+→ /to-test red
 → /to-coding
-→ /to-test
+→ /to-test green
 → /to-quality-review（如需代码质量建议）
 → /to-review
 ```
@@ -368,7 +375,9 @@ PR 描述会包含本次改动说明、AI 辅助声明、开发者自查清单�
 ```text
 /to-prd
 → /to-issues
+→ /to-test red
 → /to-coding
+→ /to-test green
 ```
 适合已经有设计文档、会议纪要、需求描述，但还没有结构化 PRD 的场景。
 如果需求只提供了部分材料，建议以 `/grill-me` 或 `/grill-with-docs` 进行需求澄清，再使用 `/to-prd` 生成 PRD。
@@ -376,13 +385,13 @@ PR 描述会包含本次改动说明、AI 辅助声明、开发者自查清单�
 ### 只做交付前检查
 
 ```text
-/to-test
+/to-test green
 → /to-quality-review（如需代码质量建议）
 → /to-review
 → /to-commit
 ```
 
-适合代码已经完成，需要做验收回收、只读审查和提交收尾的场景。
+适合代码已经完成，需要重放红绿灯清单、只读审查和提交收尾的场景。
 
 ### 只做代码质量质检
 
@@ -432,7 +441,11 @@ PR 描述会包含本次改动说明、AI 辅助声明、开发者自查清单�
 ```
 
 ```text
-/to-test 对本次改动执行测试回收。
+/to-test red 为 2.4.0-1 生成红绿灯清单并跑红证据。
+```
+
+```text
+/to-test green 重放清单，全绿后自动勾选。
 ```
 
 ```text
