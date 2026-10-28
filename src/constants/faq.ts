@@ -111,14 +111,14 @@ export const FAQ_ITEMS: FaqItem[] = [
       { type: 'paragraph', text: '不建议。' },
       {
         type: 'paragraph',
-        text: '`to-test` 的职责就是在更新 changelog 和版本前检查 `.ISSUES/` 是否全部完成。若仍有未完成项，应先回到 `/to-coding` 或重新讨论需求范围。',
+        text: '`/to-test green` 会在发版前重放 issue 内的红绿灯清单：只有全部为绿（无黄、无红、无作废）的 issue 才算验收通过并自动勾选；存在黄灯或红灯时不能视为完成，应先回到 `/to-coding` 修复或人工确认后再重跑。',
       },
     ],
     answerEn: [
       { type: 'paragraph', text: 'Not recommended.' },
       {
         type: 'paragraph',
-        text: '`to-test` checks whether `.ISSUES/` is fully complete before changelog and version updates. If items remain open, go back to `/to-coding` or renegotiate scope.',
+        text: '`/to-test green` replays each issue\'s red-green checklist before release: only all-green issues (no yellow, no red, no invalid cases) count as accepted and get auto-ticked; yellow or red issues are not complete — go back to `/to-coding` or confirm manually, then replay.',
       },
     ],
   },
@@ -126,20 +126,17 @@ export const FAQ_ITEMS: FaqItem[] = [
     questionZh: '测试通过后谁来确认？',
     questionEn: 'Who confirms after tests pass?',
     answerZh: [
-      { type: 'paragraph', text: 'Agent 可以做静态检查、文档检查、规则检查和流程回收。' },
+      { type: 'paragraph', text: '红灯和绿结果由浏览器全流程测试自动判定。' },
       {
         type: 'paragraph',
-        text: '涉及真实交互体验、视觉还原、业务语义、发布确认时，需要用户或团队成员人工验收。未经过人工确认的 HITL 项，Agent 不应擅自标记为通过。',
+        text: '全绿时 `/to-test green` 自动勾选验收项，无需人工逐个点页面；黄灯项（视觉、业务语义、无自动化能力）会附可照做的人工验证步骤，必须经用户确认后才能转绿，Agent 不应把黄灯冒充为通过。',
       },
     ],
     answerEn: [
+      { type: 'paragraph', text: 'Red/green results are decided by full-flow browser tests.' },
       {
         type: 'paragraph',
-        text: 'The Agent can run static checks, doc checks, rule checks, and process recovery.',
-      },
-      {
-        type: 'paragraph',
-        text: 'Real interaction, visual fidelity, business semantics, and release confirmation require human acceptance. The Agent must not mark HITL items as passed without human confirmation.',
+        text: 'When all cases are green, `/to-test green` auto-ticks acceptance items — no manual clicking through pages. Yellow items (visual, business semantics, no automation available) come with manual steps and must be confirmed by a human before turning green; the Agent must not pass yellow off as green.',
       },
     ],
   },

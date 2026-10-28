@@ -35,6 +35,10 @@ zerone setup omz
 
 `setup-omz` scans the project stack and generates `docs/agent/introduction.md`. It does not write business knowledge or run project scripts.
 
+## 5. Acceptance testing (to-test)
+
+With `to-test` installed, acceptance follows a red-green TDD loop: `/to-test red` before coding generates a red-green checklist and captures failure evidence; `/to-test green` after coding replays the checklist and auto-ticks issue acceptance criteria and PRD TODOQ when all cases are green. Yellow items need manual confirmation, red items produce a rework ticket. Testing runs full browser flows; the checklist lives inside the issue document and evidence is stored under `.TEST/` (local only, never committed).
+
 ## Recommended minimal set
 
 ```text

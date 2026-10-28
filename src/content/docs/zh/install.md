@@ -36,6 +36,10 @@ zerone setup omz
 
 `setup-omz` 会扫描项目技术栈并生成 `docs/agent/introduction.md`，不写业务知识，不运行项目脚本。
 
+## 5. 验收测试（to-test）
+
+安装 `to-test` 后采用 TDD 红绿灯验收：编码前 `/to-test red` 生成红绿灯清单并跑出红证据，编码后 `/to-test green` 重放清单，全绿自动勾选 issue 验收标准与 PRD TODOQ；黄灯需人工确认，红灯输出返工单。测试面为浏览器全流程，红绿灯清单嵌在 issue 文档中，证据落 `.TEST/`（仅本地，不入库）。
+
 ## 推荐最小安装组合
 
 ```text

@@ -100,8 +100,8 @@ export const SKILLS_META: SkillMeta[] = [
   {
     slug: 'to-test',
     name: 'to-test',
-    descriptionZh: '测试回收与验收确认',
-    descriptionEn: 'Test recovery and acceptance confirmation',
+    descriptionZh: 'TDD 红绿灯验收：先跑红、后跑绿，全绿自动勾选',
+    descriptionEn: 'Red-green TDD acceptance: red proof, then green and auto-tick',
     category: 'review',
   },
   {

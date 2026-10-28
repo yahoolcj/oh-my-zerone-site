@@ -59,7 +59,7 @@ Open DSH's **Plugin Market**, search **yahoolcj/dsh-plugin-zerone**, and one-cli
 | grill-with-docs / grill-me / grill-from-draft / grill-me-ui | Requirement and design clarification |
 | to-plan / to-prd / to-issues | Plan, PRD, and issue slicing |
 | to-coding / to-locate / to-explain | Coding, problem locating, code explanation |
-| to-test / to-quality-review / to-review | Test acceptance, quality check, review |
+| to-test / to-quality-review / to-review | Red-green acceptance (red / green), quality check, review |
 | to-commit | Commit / PR wrap-up |
 | setup-omz | Generate / fill `docs/agent/introduction.md` |
 | omz-governance | Mechanism details (workflow / review / evolution / coding rules) |

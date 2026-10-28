@@ -60,7 +60,7 @@ omz 以 DSH 内置插件形态交付：`@vigalai/dsh-plugin-zerone`。安装后�
 | grill-with-docs / grill-me / grill-from-draft / grill-me-ui | 需求与方案澄清 |
 | to-plan / to-prd / to-issues | 计划、PRD 沉淀与 issue 切片 |
 | to-coding / to-locate / to-explain | 编码开发、问题定位、代码解释 |
-| to-test / to-quality-review / to-review | 测试回收、质量质检、审查 |
+| to-test / to-quality-review / to-review | 红绿灯验收（red / green）、质量质检、审查 |
 | to-commit | commit / PR 收尾 |
 | setup-omz | 生成 / 补全 `docs/agent/introduction.md` |
 | omz-governance | 机制流程细节（工作流 / 审查 / 进化 / 编码规则） |
